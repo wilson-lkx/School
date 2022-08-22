@@ -2,32 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Student</title>
+    <title>School</title>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/plug-ins/1.10.24/dataRender/datetime.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css">
     <script type="text/javascript">
       $(document).ready(function() {
         $('#student-table').DataTable({
-          ajax: 'students',
+          ajax: {
+            url: '/api/students',
+            type: 'GET',
+            dataSrc: ''
+          },
           columns: [{
-            data: 'firstName' + 'lastName',
-            data: 'address',
-            data: 'city',
+            data: null,
+            orderable: false,
+            render: function(data, type, row, meta) {
+              return meta.row + 1;
+            }
+          }, {
+            data: null,
+            render: function(data, type, row, meta) {
+              return row.firstName + ' ' + row.lastName;
+            }
+          }, {
+            data: 'address'
+          }, {
+            data: 'city'
+          }, {
             data: 'dateOfBirth',
-            data: 'intakeYear',
-            data: 'hp',
+            render: function (data) {
+            if(data != 'In progress'){
+                return moment(data, 'YYYY-MM-DD HH:mm:ss').format('DD/MM/YYYY')
+            }else{
+                return data
+            }
+          }
+          }, {
+            data: 'intakeYear'
+          }, {
+            data: 'hp'
+          }, {
             data: 'gender'
           }],
         });
       });
     </script>
+    <style>
+      h1 {
+        text-align: center;
+      }
+    </style>
 </head>
 <body>
+<h1>Student</h1>
+<br>
+<br>
 <table id="student-table" class="display" style="width:100%">
     <thead>
     <tr>
+        <th></th>
         <th>Name</th>
         <th>Address</th>
         <th>City</th>
@@ -37,17 +74,6 @@
         <th>Gender</th>
     </tr>
     </thead>
-    <tfoot>
-    <tr>
-        <th>Name</th>
-        <th>Address</th>
-        <th>City</th>
-        <th>DateOfBirth</th>
-        <th>IntakeYear</th>
-        <th>H/P</th>
-        <th>Gender</th>
-    </tr>
-    </tfoot>
 </table>
 </body>
 </html>
