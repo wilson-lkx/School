@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css">
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#student-table').DataTable({
+          ajax: 'students',
+          columns: [{
+            data: 'firstName' + 'lastName',
+            data: 'address',
+            data: 'city',
+            data: 'dateOfBirth',
+            data: 'intakeYear',
+            data: 'hp',
+            data: 'gender'
+          }],
+        });
+      });
+    </script>
+</head>
+<body>
+<table id="student-table" class="display" style="width:100%">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>DateOfBirth</th>
+        <th>IntakeYear</th>
+        <th>H/P</th>
+        <th>Gender</th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>DateOfBirth</th>
+        <th>IntakeYear</th>
+        <th>H/P</th>
+        <th>Gender</th>
+    </tr>
+    </tfoot>
+</table>
+</body>
+</html>
